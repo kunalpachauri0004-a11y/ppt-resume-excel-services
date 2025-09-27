@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunal's PPT, Resume & Excel Services</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+    section { padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 10px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #45a049; }
+    .thank-you { display: none; text-align: center; padding: 20px; background: #dff0d8; margin-top: 20px; border-radius: 5px; }
+    .payment-section { text-align: center; padding: 20px; background: #fff; margin-top: 20px; border-radius: 5px; }
+    footer { text-align: center; padding: 10px; font-size: 14px; color: #777; margin-top: 20px; }
+    .lang-switch { display: flex; justify-content: flex-end; align-items: center; margin: 10px; gap: 5px; }
+    .upi-img { max-width:300px; margin:15px auto; display:block; border:1px solid #ccc; border-radius:10px; }
+    .copy-btn { margin-top:10px; padding:8px 15px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer; }
+    .copy-btn:hover { background:#0056b3; }
+    .welcome { text-align:center; margin:10px; font-size:18px; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="welcome">Wellcome, my dear customer</div>
+
+<div class="lang-switch">
+    <label for="language">Language / भाषा:</label>
+    <select id="language" onchange="switchLanguage()">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+    </select>
+</div>
+<header>
+    <h1 data-en="Kunal's PPT, Resume & Excel Services" data-hi="कुनाल की पीपीटी, रिज्यूमे और एक्सेल सेवाएँ">Kunal's PPT, Resume & Excel Services</h1>
+    <p data-en="Affordable and Professional Service" data-hi="सस्ती और पेशेवर सेवा">Affordable and Professional Service</p>
+    <p data-en="Pricing: PPT: ₹12/slide | Resume: ₹25/page | Data Entry: ₹15/page" data-hi="मूल्य: पीपीटी: ₹12/स्लाइड | रिज्यूमे: ₹25/पृष्ठ | डाटा एंट्री: ₹15/पृष्ठ">Pricing: PPT: ₹12/slide | Resume: ₹25/page | Data Entry: ₹15/page</p>
+</header>
+<section>
+    <h2 style="text-align:center;" data-en="Place Your Order" data-hi="अपना ऑर्डर दें">Place Your Order</h2>
+    <form id="orderForm">
+        <div class="form-group"><label data-en="Full Name *" data-hi="पूरा नाम *">Full Name *</label><input type="text" id="name" required></div>
+        <div class="form-group"><label data-en="Email *" data-hi="ईमेल *">Email *</label><input type="email" id="email" required></div>
+        <div class="form-group"><label data-en="Phone Number *" data-hi="फ़ोन नंबर *">Phone Number *</label><input type="text" id="phone" required></div>
+        <div class="form-group"><label data-en="Service Type *" data-hi="सेवा का प्रकार *">Service Type *</label>
+            <select id="service" required onchange="updatePrice()">
+                <option value="PPT">PPT</option>
+                <option value="Resume">Resume</option>
+                <option value="Excel Data Entry">Excel Data Entry</option>
+            </select>
+        </div>
+        <div class="form-group"><label data-en="Number of Pages / Slides *" data-hi="पृष्ठों/स्लाइड्स की संख्या *">Number of Pages / Slides *</label><input type="number" id="pages" required oninput="updatePrice()"></div>
+        <div class="form-group"><label data-en="Template Design Preference" data-hi="टेम्पलेट डिज़ाइन प्राथमिकता">Template Design Preference</label>
+            <select id="design">
+                <option value="Minimal">Minimal</option>
+                <option value="Modern">Modern</option>
+                <option value="Creative">Creative</option>
+            </select>
+        </div>
+        <div class="form-group"><label data-en="Sample File Upload (Optional)" data-hi="नमूना फ़ाइल अपलोड (वैकल्पिक)">Sample File Upload (Optional)</label><input type="file" id="file"></div>
+        <div class="form-group"><label data-en="Additional Notes" data-hi="अतिरिक्त नोट्स">Additional Notes</label><textarea id="notes"></textarea></div>
+        <div class="form-group"><label data-en="Deadline *" data-hi="अंतिम तिथि *">Deadline *</label><input type="date" id="deadline" required></div>
+        <p><strong data-en="Total Price:" data-hi="कुल मूल्य:">Total Price:</strong> ₹<span id="totalPrice">0</span></p>
+        <button type="submit" data-en="Submit Order" data-hi="ऑर्डर सबमिट करें">Submit Order</button>
+    </form>
+
+    <div class="payment-section" id="paymentSection" style="display:none;text-align:center;padding:20px;">
+        <h2 data-en="Complete Your Payment" data-hi="अपना भुगतान पूरा करें">Complete Your Payment</h2>
+        <p data-en="Scan the QR below or pay directly to our UPI ID." data-hi="नीचे दिए गए क्यूआर को स्कैन करें या सीधे हमारे UPI ID पर भुगतान करें।">Scan the QR below or pay directly to our UPI ID.</p>
+        <img class="upi-img" src="https://image2url.com/images/1758892919551-11b95ead-5608-40b5-bc6a-79b6868da31c.jpg" alt="UPI QR Code">
+        <p><strong>UPI ID:</strong> <span id="upiId" style="font-weight:bold;color:#333;">9837862863@ybl</span></p>
+        <button class="copy-btn" onclick="copyUpiId()">Copy UPI ID</button>
+        <p><strong data-en="Total Amount:" data-hi="कुल राशि:">Total Amount:</strong> ₹<span id="paymentAmount">0</span></p>
+    </div>
+
+    <div class="thank-you" id="thankYou">
+        <h2 data-en="Thank You!" data-hi="धन्यवाद!">Thank You!</h2>
+        <p data-en="Your order has been submitted. We will contact you soon." data-hi="आपका ऑर्डर सबमिट कर दिया गया है। हम जल्द ही आपसे संपर्क करेंगे।">Your order has been submitted. We will contact you soon.</p>
+    </div>
+</section>
+<footer>
+    &copy; 2025 Kunal's PPT, Resume & Excel Services
+</footer>
+<script>
+    const prices = { PPT: 12, Resume: 25, "Excel Data Entry": 15 };
+    let total = 0;
+
+    function updatePrice() {
+        const service = document.getElementById('service').value;
+        const pages = parseInt(document.getElementById('pages').value) || 0;
+        total = prices[service] * pages;
+        document.getElementById('totalPrice').innerText = total;
+        document.getElementById('paymentAmount').innerText = total;
+    }
+
+    window.onload = function() {
+        updatePrice();
+    };
+
+    function saveOrder(order) {
+        const existing = JSON.parse(localStorage.getItem('orders') || '[]');
+        existing.push(order);
+        localStorage.setItem('orders', JSON.stringify(existing));
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (total <= 0) {
+            alert("Please enter valid number of pages/slides to calculate total amount.");
+            return;
+        }
+        const order = {
+            id: 'ORD' + Date.now(),
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            service: document.getElementById('service').value,
+            pages: document.getElementById('pages').value,
+            design: document.getElementById('design').value,
+            notes: document.getElementById('notes').value,
+            deadline: document.getElementById('deadline').value,
+            amount: total,
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            paymentId: ''
+        };
+        saveOrder(order);
+        document.getElementById('orderForm').style.display = 'none';
+        document.getElementById('paymentSection').style.display = 'block';
+        document.getElementById('paymentAmount').innerText = document.getElementById('totalPrice').innerText;
+    });
+
+    function switchLanguage() {
+        const lang = document.getElementById('language').value;
+        document.querySelectorAll('[data-en]').forEach(el => {
+            el.innerText = el.getAttribute(`data-${lang}`);
+        });
+    }
+
+    function copyUpiId() {
+        const upiId = document.getElementById('upiId').innerText;
+        navigator.clipboard.writeText(upiId).then(() => {
+            alert("UPI ID copied: " + upiId);
+        });
+    }
+</script>
+</body>
+</html>
